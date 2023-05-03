@@ -112,7 +112,8 @@ function init() {
 
   window.game = new Game({ map, player });
 
-  start({ loop });
+  // Aspect ratio tweaked slightly to be a perfect multiple of units
+  start({ loop, width: 336, height: 192 });
 }
 
 init();

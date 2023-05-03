@@ -1,6 +1,12 @@
-import { Sprite, assert } from "@danprince/games";
-import { GameObject } from "./object";
+import { Sprite, PivotSprite, assert } from "@danprince/games";
 import { removeFromArray } from "./helpers";
+import * as sprites from "./sprites";
+
+export class GameObject {
+  sprite: Sprite | PivotSprite = sprites.missing_sprite;
+  x: number = 0;
+  y: number = 0;
+}
 
 export class Terrain {
   sprites: Sprite[];

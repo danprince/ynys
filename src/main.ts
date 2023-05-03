@@ -1,8 +1,7 @@
 import { start, draw } from "@danprince/games";
-import { GameMap, Terrain } from "./map";
 import * as sprites from "./sprites";
 import { unit } from "./config";
-import { GameObject } from "./object";
+import { Game, GameObject, Terrain, GameMap } from "./game";
 
 declare global {
   const game: Game;
@@ -15,13 +14,6 @@ declare global {
 let grass = new Terrain({
   sprites: [sprites.tile_grass_1, sprites.tile_grass_2],
 });
-
-class Game {
-  map: GameMap;
-  constructor() {
-    this.map = new GameMap({ width: 10, height: 10, terrain: grass });
-  }
-}
 
 function loop() {
   for (let y = 0; y < game.map.height; y++) {
@@ -39,8 +31,10 @@ function init() {
   let player = new GameObject();
   player.sprite = sprites.mob_druid_idle_1;
 
-  window.game = new Game();
-  game.map.spawn(player, 5, 5);
+  let map = new GameMap({ width: 10, height: 10, terrain: grass });
+  map.spawn(player, 5, 5);
+
+  window.game = new Game({ map });
 
   start({ loop });
 }

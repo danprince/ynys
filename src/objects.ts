@@ -11,6 +11,7 @@ export function Player(): GameObject {
 
 export function Tree(): GameObject {
   let unit = new GameObject();
+  unit.tags.add(Tags.Occludes);
   unit.sprite = randomElement([
     sprites.object_tree_1,
     sprites.object_tree_2,

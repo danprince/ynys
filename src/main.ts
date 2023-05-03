@@ -1,4 +1,4 @@
-import { start, draw, down, pressed, clear, drawFlipped, randomInt } from "@danprince/games";
+import { start, draw, down, pressed, clear, drawFlipped, randomInt, ctx } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings, unit } from "./config";
 import { Game, GameObject, Terrain, GameMap, Tags } from "./game";
@@ -72,7 +72,16 @@ function renderObject(object: GameObject) {
     draw(sprites.shadow, shadowX, shadowY);
   }
 
+  ctx.save();
+  if (object.tags.has(Tags.Occludes)) {
+    let occludedCell = game.map.getCell(object.x, object.y - 1);
+    if (occludedCell?.objects.some(object => object.tags.has(Tags.Mobile))) {
+      ctx.globalAlpha = 0.5;
+    }
+  }
+
   draw(object.sprite, spriteX, spriteY);
+  ctx.restore();
 }
 
 function update() {

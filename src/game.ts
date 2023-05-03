@@ -3,7 +3,8 @@ import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
 
 export enum Tags {
-  Mobile = "mobile"
+  Mobile = "mobile",
+  Occludes = "occludes",
 }
 
 export class GameObject {

@@ -66,6 +66,7 @@ export class Cell {
 
 export class GameMap {
   cells: Cell[] = [];
+  objects: GameObject[] = [];
   width: number = 0;
   height: number = 0;
 
@@ -107,12 +108,14 @@ export class GameMap {
 
   spawn(object: GameObject, x: number = object.x, y: number = object.y) {
     this.moveObject(object, x, y);
+    this.objects.push(object);
   }
 
   despawn(object: GameObject) {
     let cell = this.getCell(object.x, object.y);
     assert(cell, `Cannot despawn object at: ${object.x}, ${object.y}`);
     cell.removeObject(object);
+    removeFromArray(this.objects, object);
   }
 
   moveObject(object: GameObject, x: number, y: number) {

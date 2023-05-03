@@ -28,17 +28,13 @@ export class GameObject {
 
 export class Terrain {
   sprites: Sprite[];
-  objects: GameObject[];
 
   constructor({
     sprites,
-    objects = [],
   }: {
     sprites: Sprite[];
-    objects?: GameObject[];
   }) {
     this.sprites = sprites;
-    this.objects = objects;
   }
 }
 

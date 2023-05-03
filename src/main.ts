@@ -2,7 +2,7 @@ import { start, pressed, randomInt, randomElement } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, Terrain, GameMap, Tags, Decoration } from "./game";
-import { Player, Roman, Tree } from "./objects";
+import { Bush, Player, Rock, Roman, Tree } from "./objects";
 import { moveBy, rest } from "./actions";
 import { render } from "./render";
 import { cardinalDirections } from "./helpers";
@@ -76,12 +76,16 @@ function init() {
   map.spawn(Roman(), randomInt(map.width), randomInt(map.height));
 
   for (let i = 0; i < 100; i++) {
-    let tree = Tree();
-    let x = randomInt(map.width);
-    let y = randomInt(map.height);
-    let cell = map.getCell(x, y);
+    let cell = randomElement(map.cells);
     if (cell?.isEmpty()) {
-      map.spawn(tree, x, y);
+      map.spawn(Tree(), cell.x, cell.y);
+    }
+  }
+
+  for (let i = 0; i < 20; i++) {
+    let cell = randomElement(map.cells);
+    if (cell?.isEmpty()) {
+      map.spawn(Rock(), cell.x, cell.y);
     }
   }
 

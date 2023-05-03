@@ -31,3 +31,15 @@ export function Tree(): GameObject {
   ]);
   return unit;
 }
+
+export function Rock(): GameObject {
+  let unit = new GameObject();
+  unit.sprite = randomElement([
+    sprites.object_mossy_rock_1,
+    sprites.object_mossy_rock_2,
+    sprites.object_mossy_rock_3,
+    sprites.object_mossy_rock_4,
+    sprites.object_mossy_rock_5,
+  ]);
+  return unit;
+}

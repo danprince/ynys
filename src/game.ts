@@ -61,11 +61,25 @@ export class Tile {
 }
 
 export class Cell {
+  x: number;
+  y: number;
   tile: Tile;
   objects: GameObject[];
   decorations: Decoration[] = [];
 
-  constructor({ tile, objects = [] }: { tile: Tile; objects?: GameObject[] }) {
+  constructor({
+    x,
+    y,
+    tile,
+    objects = [],
+  }: {
+    x: number;
+    y: number;
+    tile: Tile;
+    objects?: GameObject[];
+  }) {
+    this.x = x;
+    this.y = y;
     this.tile = tile;
     this.objects = objects;
   }
@@ -109,7 +123,11 @@ export class GameMap {
     this.width = width;
     this.height = height;
     this.cells = Array.from({ length: width * height }).map(
-      () => new Cell({ tile: new Tile({ terrain }) }),
+      (_, index) => new Cell({
+        x: index % width,
+        y: Math.floor(index / width),
+        tile: new Tile({ terrain })
+      }),
     );
     this.autotile();
   }

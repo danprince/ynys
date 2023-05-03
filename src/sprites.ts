@@ -15,3 +15,4 @@ export const object_tree_6 = { y: 71, url, x: 120, w: 25, h: 41, pivot: { x: 13,
 export const object_tree_7 = { y: 70, url, x: 145, w: 24, h: 42, pivot: { x: 10, y: 38, }, };
 export const object_tree_8 = { y: 71, url, x: 169, w: 24, h: 41, pivot: { x: 10, y: 38, }, };
 export const object_centurion = { y: 43, url, x: 26, w: 18, h: 21, pivot: { x: 10, y: 20, }, };
+export const ui_targeting_dot = { url, x: 16, w: 3, h: 4, y: 0, };

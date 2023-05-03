@@ -70,6 +70,10 @@ export class Cell {
     this.objects = objects;
   }
 
+  isEmpty() {
+    return this.objects.length === 0;
+  }
+
   addObject(object: GameObject) {
     this.objects.push(object);
   }

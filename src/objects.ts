@@ -9,6 +9,13 @@ export function Player(): GameObject {
   return unit;
 }
 
+export function Roman(): GameObject {
+  let unit = new GameObject();
+  unit.sprite = sprites.object_centurion;
+  unit.tags.add(Tags.Mobile);
+  return unit;
+}
+
 export function Tree(): GameObject {
   let unit = new GameObject();
   unit.tags.add(Tags.Occludes);

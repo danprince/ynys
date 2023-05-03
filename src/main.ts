@@ -2,7 +2,7 @@ import { start, pressed, randomInt } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, Terrain, GameMap } from "./game";
-import { Player, Tree } from "./objects";
+import { Player, Roman, Tree } from "./objects";
 import { moveBy } from "./actions";
 import { render } from "./render";
 
@@ -55,7 +55,9 @@ function init() {
   let map = new GameMap({ width: 30, height: 30, terrain: grass });
   map.spawn(player, 5, 5);
 
-  for (let i = 0; i < 10; i++) {
+  map.spawn(Roman(), randomInt(map.width), randomInt(map.height));
+
+  for (let i = 0; i < 100; i++) {
     let tree = Tree();
     map.spawn(tree, randomInt(map.width), randomInt(map.height));
   }

@@ -14,3 +14,4 @@ export const object_tree_5 = { y: 74, url, x: 98, w: 22, h: 38, pivot: { x: 11, 
 export const object_tree_6 = { y: 71, url, x: 120, w: 25, h: 41, pivot: { x: 13, y: 38, }, };
 export const object_tree_7 = { y: 70, url, x: 145, w: 24, h: 42, pivot: { x: 10, y: 38, }, };
 export const object_tree_8 = { y: 71, url, x: 169, w: 24, h: 41, pivot: { x: 10, y: 38, }, };
+export const object_centurion = { y: 43, url, x: 26, w: 18, h: 21, pivot: { x: 10, y: 20, }, };

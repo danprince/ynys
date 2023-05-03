@@ -1,8 +1,8 @@
-import { start, draw, down, pressed, clear, drawFlipped } from "@danprince/games";
+import { start, draw, down, pressed, clear, drawFlipped, randomInt } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings, unit } from "./config";
 import { Game, GameObject, Terrain, GameMap, Tags } from "./game";
-import { Player } from "./objects";
+import { Player, Tree } from "./objects";
 import { moveBy, moveTo } from "./actions";
 
 declare global {
@@ -95,6 +95,11 @@ function init() {
 
   let map = new GameMap({ width: 10, height: 10, terrain: grass });
   map.spawn(player, 5, 5);
+
+  for (let i = 0; i < 10; i++) {
+    let tree = Tree();
+    map.spawn(tree, randomInt(map.width), randomInt(map.height));
+  }
 
   window.game = new Game({ map, player });
 

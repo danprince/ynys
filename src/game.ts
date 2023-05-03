@@ -15,9 +15,15 @@ export class GameObject {
   x: number = 0;
   y: number = 0;
   facing: "left" | "right" = "left";
+
+  // Camera follows the offset properties
   spriteOffsetX: number = 0;
   spriteOffsetY: number = 0;
-  spriteOffsetZ: number = 0;
+
+  // Camera ignores the bump properties
+  spriteBumpX: number = 0;
+  spriteBumpY: number = 0;
+  spriteBumpZ: number = 0;
 }
 
 export class Terrain {

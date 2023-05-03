@@ -28,7 +28,7 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
   }, {
     duration: 150,
     id: object.id,
-    step: t => object.spriteOffsetZ = Math.sin(t * Math.PI) * 0.25,
+    step: t => object.spriteBumpZ = Math.sin(t * Math.PI) * 0.25,
     easing: easeInOut,
   });
 
@@ -37,19 +37,17 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
 }
 
 export function bump(object: GameObject, x: number, y: number): boolean {
-  object.spriteOffsetX = (x - object.x) / 2;
-  object.spriteOffsetY = (y - object.y) / 2;
+  object.spriteBumpX = (x - object.x) / 2;
+  object.spriteBumpY = (y - object.y) / 2;
 
-  // Prevent camera from moving with bumps
-  game.camera.stable = true;
   tween(object, {
-    spriteOffsetX: 0,
-    spriteOffsetY: 0,
+    spriteBumpX: 0,
+    spriteBumpY: 0,
   }, {
     duration: 150,
     id: object.id,
     easing: easeInOut,
-  }).then(() => game.camera.stable = false);
+  });
 
   return false;
 }

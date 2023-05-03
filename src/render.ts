@@ -115,9 +115,9 @@ function renderObject(object: GameObject) {
   }
 
   // Account for sprite's visual offset during tweens etc
-  let offsetX = object.spriteOffsetX * unit;
-  let offsetY = object.spriteOffsetY * unit;
-  let offsetZ = object.spriteOffsetZ * unit;
+  let offsetX = (object.spriteOffsetX + object.spriteBumpX)* unit;
+  let offsetY = (object.spriteOffsetY + object.spriteBumpY) * unit;
+  let offsetZ = object.spriteBumpZ * unit;
 
   let spriteX = tileCenterX - pivotX + offsetX;
   let spriteY = tileCenterY - pivotY + offsetY - offsetZ;

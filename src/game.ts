@@ -107,3 +107,13 @@ export class GameMap {
     newCell.addObject(object);
   }
 }
+
+export class Game {
+  map: GameMap;
+  player: GameObject;
+
+  constructor({ map, player }: { map: GameMap; player: GameObject }) {
+    this.map = map;
+    this.player = player;
+  }
+}

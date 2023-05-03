@@ -2,6 +2,7 @@ import { start, draw } from "@danprince/games";
 import * as sprites from "./sprites";
 import { unit } from "./config";
 import { Game, GameObject, Terrain, GameMap } from "./game";
+import { Player } from "./objects";
 
 declare global {
   const game: Game;
@@ -28,13 +29,12 @@ function loop() {
 }
 
 function init() {
-  let player = new GameObject();
-  player.sprite = sprites.mob_druid_idle_1;
+  let player = Player();
 
   let map = new GameMap({ width: 10, height: 10, terrain: grass });
   map.spawn(player, 5, 5);
 
-  window.game = new Game({ map });
+  window.game = new Game({ map, player });
 
   start({ loop });
 }

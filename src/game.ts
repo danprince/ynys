@@ -81,6 +81,17 @@ export class GameMap {
     this.cells = Array.from({ length: width * height }).map(
       () => new Cell({ tile: new Tile({ terrain }) }),
     );
+    this.autotile();
+  }
+
+  autotile() {
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        let checker = x % 2 ? y % 2 : 1 - (y % 2);
+        let cell = this.getCell(x, y);
+        if (cell) cell.tile.sprite = cell.tile.terrain.sprites[checker];
+      }
+    }
   }
 
   isOutOfBounds(x: number, y: number): boolean {

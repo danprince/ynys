@@ -120,9 +120,11 @@ function getViewport(): Rectangle {
   x = clamp(0, map.width - w, x);
   y = clamp(0, map.height - h, y);
 
-  // Render outside the visible area so that camera tweens are smooth
+  // Render outside the visible area so that camera tweens are smooth. There
+  // are quite a few "tall" objects, like trees, so render a few extra rows
+  // vertically to prevent objects suddenly appearing.
   w = w + 1;
-  h = h + 1;
+  h = h + 3;
 
   return { x, y, w, h };
 }
@@ -138,7 +140,6 @@ function updateCamera() {
   // Move camera to center on player
   camera.x = player.x + player.spriteOffsetX;
   camera.y = player.y + player.spriteOffsetY;
-  camera.x
 }
 
 function updatePlayer(): boolean {

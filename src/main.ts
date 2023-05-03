@@ -80,7 +80,7 @@ function renderObject(object: GameObject) {
     }
   }
 
-  draw(object.sprite, spriteX, spriteY);
+  drawFlipped(object.sprite, spriteX, spriteY, object.facing === "left", false);
   ctx.restore();
 }
 

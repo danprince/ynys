@@ -17,6 +17,9 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
   object.spriteOffsetX = object.x - x;
   object.spriteOffsetY = object.y - y;
 
+  // If the object is moving horizontally, set facing
+  if (x !== object.x) object.facing = x > object.x ? "right" : "left";
+
   tween(object, {
     spriteOffsetX: 0,
     spriteOffsetY: 0,

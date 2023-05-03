@@ -14,6 +14,7 @@ export class GameObject {
   tags = new Set<Tags>();
   x: number = 0;
   y: number = 0;
+  facing: "left" | "right" = "left";
   spriteOffsetX: number = 0;
   spriteOffsetY: number = 0;
   spriteOffsetZ: number = 0;

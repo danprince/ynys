@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  '@danprince/games':
+    specifier: ^0.0.10
+    version: 0.0.10
+
 devDependencies:
   typescript:
     specifier: ^5.0.2
@@ -9,6 +14,10 @@ devDependencies:
     version: 4.3.2
 
 packages:
+
+  /@danprince/games@0.0.10:
+    resolution: {integrity: sha512-w+eA+F5o+OQ6na2b41D3c2CloFbvV1BfnWBhQ4iIBs+3lfmIAOPAtXyd5UhTpuaGNasSULfPhF6Iqb8NwKFLhA==}
+    dev: false
 
   /@esbuild/android-arm64@0.17.18:
     resolution: {integrity: sha512-/iq0aK0eeHgSC3z55ucMAHO05OIqmQehiGay8eP5l/5l+iEr4EIbh4/MI8xD9qRFjqzgkc0JkX0LculNC9mXBw==}

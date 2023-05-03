@@ -2,7 +2,7 @@ import { start, pressed, randomInt, randomElement } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, Terrain, GameMap, Tags, Decoration } from "./game";
-import { Bush, Player, Rock, Roman, Tree } from "./objects";
+import { Player, Rock, Roman, Tree } from "./objects";
 import { moveBy, rest } from "./actions";
 import { render } from "./render";
 import { cardinalDirections } from "./helpers";

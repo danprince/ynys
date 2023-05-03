@@ -1,8 +1,7 @@
-import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point, Sprite, pointer } from "@danprince/games";
+import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point, pointer } from "@danprince/games";
 import { unit } from "./config";
 import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
-import { lerp } from "./helpers";
 
 export function getViewport(): Rectangle {
   let { camera, map } = game;
@@ -86,23 +85,7 @@ export function render() {
   end();
 }
 
-function drawDottedLine(p1: Point, p2: Point) {
-  let x1 = p1.x + 0.5;
-  let y1 = p1.y + 0.5;
-  let x2 = p2.x + 0.5;
-  let y2 = p2.y + 0.5;
-  let numberOfDots = Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
-
-  for (let i = 1; i <= numberOfDots; i++) {
-    draw(
-      sprites.ui_targeting_dot,
-      lerp(x1, x2, i / numberOfDots) * unit - 2,
-      lerp(y1, y2, i / numberOfDots) * unit - 2,
-    );
-  }
-}
-
-function getCursorPosition() {
+export function getCursorPosition() {
   let { x, y } = pointer();
   return screenToWorld(x, y);
 }

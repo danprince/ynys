@@ -1,10 +1,11 @@
-import { start, pressed, randomInt } from "@danprince/games";
+import { start, pressed, randomInt, randomElement } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
-import { Game, Terrain, GameMap } from "./game";
+import { Game, Terrain, GameMap, Tags } from "./game";
 import { Player, Roman, Tree } from "./objects";
 import { moveBy } from "./actions";
 import { render } from "./render";
+import { cardinalDirections } from "./helpers";
 
 declare global {
   const game: Game;
@@ -29,7 +30,7 @@ function update() {
   let success = updatePlayer();
 
   if (success) {
-    // TODO: Update other objects
+    updateNonPlayerObjects();
   }
 }
 
@@ -47,6 +48,16 @@ function updatePlayer(): boolean {
   if (keybindings.right.some(pressed)) return moveBy(game.player, 1, 0);
   if (keybindings.up.some(pressed)) return moveBy(game.player, 0, -1);
   return false;
+}
+
+function updateNonPlayerObjects() {
+  for (let object of game.map.objects) {
+    if (object === game.player) continue;
+    if (object.tags.has(Tags.Mobile)) {
+      let [x, y] = randomElement(cardinalDirections);
+      moveBy(object, x, y);
+    }
+  }
 }
 
 function init() {

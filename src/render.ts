@@ -69,6 +69,14 @@ export function render() {
       let cell = game.map.getCell(x, y)!;
       if (cell == null) continue;
 
+      for (let decoration of cell.decorations) {
+        draw(
+          decoration.sprite,
+          (x + decoration.spriteOffsetX) * unit,
+          (y + decoration.spriteOffsetY) * unit,
+        );
+      }
+
       for (let object of cell.objects) {
         renderObject(object);
       }

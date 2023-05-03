@@ -1,7 +1,7 @@
 import { start, pressed, randomInt, randomElement } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
-import { Game, Terrain, GameMap, Tags } from "./game";
+import { Game, Terrain, GameMap, Tags, Decoration } from "./game";
 import { Player, Roman, Tree } from "./objects";
 import { moveBy, rest } from "./actions";
 import { render } from "./render";
@@ -78,6 +78,18 @@ function init() {
   for (let i = 0; i < 100; i++) {
     let tree = Tree();
     map.spawn(tree, randomInt(map.width), randomInt(map.height));
+  }
+
+  for (let i = 0; i < 1000; i++) {
+    let cell = randomElement(map.cells);
+
+    cell.addDecoration(new Decoration({
+      sprite: randomElement([
+        sprites.decoration_grass_1, sprites.decoration_grass_2, sprites.decoration_grass_2, sprites.decoration_grass_1, sprites.decoration_grass_4,
+        sprites.decoration_reed_1, sprites.decoration_reed_2, sprites.decoration_reed_3, sprites.decoration_reed_2,
+        sprites.decoration_alt_grass_1, sprites.decoration_alt_grass_2,
+      ]),
+    }));
   }
 
   window.game = new Game({ map, player });

@@ -1,4 +1,4 @@
-import { Sprite, PivotSprite, assert, Point } from "@danprince/games";
+import { Sprite, PivotSprite, assert, Point, randomFloat } from "@danprince/games";
 import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
 
@@ -38,6 +38,18 @@ export class Terrain {
   }
 }
 
+export class Decoration {
+  sprite: Sprite;
+  spriteOffsetX: number;
+  spriteOffsetY: number;
+
+  constructor({ sprite }: { sprite: Sprite }) {
+    this.sprite = sprite;
+    this.spriteOffsetX = randomFloat(1);
+    this.spriteOffsetY = randomFloat(1);
+  }
+}
+
 export class Tile {
   terrain: Terrain;
   sprite: Sprite;
@@ -51,6 +63,7 @@ export class Tile {
 export class Cell {
   tile: Tile;
   objects: GameObject[];
+  decorations: Decoration[] = [];
 
   constructor({ tile, objects = [] }: { tile: Tile; objects?: GameObject[] }) {
     this.tile = tile;
@@ -63,6 +76,14 @@ export class Cell {
 
   removeObject(object: GameObject) {
     removeFromArray(this.objects, object);
+  }
+
+  addDecoration(decoration: Decoration) {
+    this.decorations.push(decoration);
+  }
+
+  removeDecoration(decoration: Decoration) {
+    removeFromArray(this.decorations, decoration);
   }
 }
 

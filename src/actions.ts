@@ -6,6 +6,11 @@ export function moveBy(object: GameObject, dx: number, dy: number): boolean {
 }
 
 export function moveTo(object: GameObject, x: number, y: number): boolean {
+  // If the object is moving horizontally, set facing
+  if (x !== object.x) {
+    object.facing = x > object.x ? "right" : "left";
+  }
+
   if (game.map.isOutOfBounds(x, y)) return false;
   let cell = game.map.getCell(x, y);
   if (cell == null) return false;
@@ -16,9 +21,6 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
 
   object.spriteOffsetX = object.x - x;
   object.spriteOffsetY = object.y - y;
-
-  // If the object is moving horizontally, set facing
-  if (x !== object.x) object.facing = x > object.x ? "right" : "left";
 
   tween(object, {
     spriteOffsetX: 0,

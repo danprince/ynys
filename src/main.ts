@@ -77,7 +77,12 @@ function init() {
 
   for (let i = 0; i < 100; i++) {
     let tree = Tree();
-    map.spawn(tree, randomInt(map.width), randomInt(map.height));
+    let x = randomInt(map.width);
+    let y = randomInt(map.height);
+    let cell = map.getCell(x, y);
+    if (cell?.isEmpty()) {
+      map.spawn(tree, x, y);
+    }
   }
 
   for (let i = 0; i < 1000; i++) {

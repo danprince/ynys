@@ -1,7 +1,7 @@
 import { start, draw, down, pressed, clear, drawFlipped } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings, unit } from "./config";
-import { Game, GameObject, Terrain, GameMap } from "./game";
+import { Game, GameObject, Terrain, GameMap, Tags } from "./game";
 import { Player } from "./objects";
 import { moveBy, moveTo } from "./actions";
 
@@ -65,6 +65,12 @@ function renderObject(object: GameObject) {
 
   let spriteX = tileCenterX - pivotX + offsetX;
   let spriteY = tileCenterY - pivotY + offsetY - offsetZ;
+
+  if (object.tags.has(Tags.Mobile)) {
+    let shadowX = tileCenterX - sprites.shadow.w / 2 + offsetX;
+    let shadowY = tileCenterY - sprites.shadow.h / 2 + offsetY;
+    draw(sprites.shadow, shadowX, shadowY);
+  }
 
   draw(object.sprite, spriteX, spriteY);
 }

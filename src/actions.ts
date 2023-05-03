@@ -19,7 +19,7 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
   }, {
     duration: 150,
     id: object.id,
-    step: t => object.spriteOffsetZ = Math.sin(t * Math.PI) * 1,
+    step: t => object.spriteOffsetZ = Math.sin(t * Math.PI) * 0.2,
   });
 
   game.map.moveObject(object, x, y);

@@ -5,3 +5,4 @@ export const missing_sprite = { url, x: 0, w: 16, h: 16, y: 0, };
 export const mob_druid_idle_2 = { url, x: 13, w: 13, h: 18, y: 46, };
 export const mob_druid_idle_1 = { url, x: 0, w: 13, h: 18, y: 46, };
 export const tile_grass_2 = { url, x: 16, w: 16, h: 16, y: 16, };
+export const shadow = { url, x: 0, w: 14, h: 5, y: 32, };

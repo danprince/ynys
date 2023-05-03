@@ -2,10 +2,15 @@ import { Sprite, PivotSprite, assert } from "@danprince/games";
 import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
 
+export enum Tags {
+  Mobile = "mobile"
+}
+
 export class GameObject {
   static counter=  0;
   id: number = GameObject.counter++;
   sprite: Sprite | PivotSprite = sprites.missing_sprite;
+  tags = new Set<Tags>();
   x: number = 0;
   y: number = 0;
   spriteOffsetX: number = 0;

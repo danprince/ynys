@@ -51,3 +51,7 @@ export function bump(object: GameObject, x: number, y: number): boolean {
 
   return false;
 }
+
+export function rest(object: GameObject): boolean {
+  return true;
+}

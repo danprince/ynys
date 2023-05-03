@@ -3,7 +3,7 @@ import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, Terrain, GameMap, Tags } from "./game";
 import { Player, Roman, Tree } from "./objects";
-import { moveBy } from "./actions";
+import { moveBy, rest } from "./actions";
 import { render } from "./render";
 import { cardinalDirections } from "./helpers";
 
@@ -47,6 +47,7 @@ function updatePlayer(): boolean {
   if (keybindings.left.some(pressed)) return moveBy(game.player, -1, 0);
   if (keybindings.right.some(pressed)) return moveBy(game.player, 1, 0);
   if (keybindings.up.some(pressed)) return moveBy(game.player, 0, -1);
+  if (keybindings.rest.some(pressed)) return rest(game.player);
   return false;
 }
 

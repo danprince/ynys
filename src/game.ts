@@ -140,19 +140,60 @@ export class GameMap {
   }
 }
 
-interface Camera {
-  x: number;
-  y: number;
-  stable: boolean;
+class BlockingActionQueue {
+  private promises: Promise<any>[] = [];
+  private onEmptyCallbacks: (() => void)[] = [];
+
+  add(promise: Promise<any>) {
+    this.promises.push(promise);
+    promise.catch(console.error);
+    promise.finally(() => this.remove(promise));
+  }
+
+  remove(promise: Promise<any>) {
+    removeFromArray(this.promises, promise);
+    if (this.isEmpty()) {
+      this.onEmpty();
+    }
+  }
+
+  isEmpty() {
+    return this.promises.length === 0;
+  }
+
+  private onEmpty() {
+    let callbacks = this.onEmptyCallbacks;
+    this.onEmptyCallbacks = [];
+    for (let callback of callbacks) {
+      callback();
+    }
+  }
+
+  waitUntilEmpty() {
+    if (this.isEmpty()) return;
+    return new Promise<void>(resolve => {
+      this.onEmptyCallbacks.push(resolve);
+    });
+  }
 }
 
 export class Game {
   map: GameMap;
   player: GameObject;
-  camera: Camera = { x: 0, y: 0, stable: false };
+  camera: Point = { x: 0, y: 0 };
+  actionQueue = new BlockingActionQueue();
 
   constructor({ map, player }: { map: GameMap; player: GameObject }) {
     this.map = map;
     this.player = player;
+  }
+
+  /**
+   * The game will block input until the returned promise has settled. This
+   * is useful for preventing input during animations that need to block
+   * before showing their consequences.
+   */
+  block(callback: () => Promise<any>) {
+    this.actionQueue.add(callback());
   }
 }

@@ -24,13 +24,19 @@ function loop() {
   render();
 }
 
-function update() {
+async function update() {
   updateCamera();
 
-  let success = updatePlayer();
+  if (game.actionQueue.isEmpty()) {
+    let success = updatePlayer();
 
-  if (success) {
-    updateNonPlayerObjects();
+    // Wait for any consequential blocking animations to be done before
+    // updating the other enemies.
+    await game.actionQueue.waitUntilEmpty();
+
+    if (success) {
+      updateNonPlayerObjects();
+    }
   }
 }
 

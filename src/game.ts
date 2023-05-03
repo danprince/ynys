@@ -134,10 +134,16 @@ export class GameMap {
   }
 }
 
+interface Camera {
+  x: number;
+  y: number;
+  stable: boolean;
+}
+
 export class Game {
   map: GameMap;
   player: GameObject;
-  camera: Point = { x: 0, y: 0 };
+  camera: Camera = { x: 0, y: 0, stable: false };
 
   constructor({ map, player }: { map: GameMap; player: GameObject }) {
     this.map = map;

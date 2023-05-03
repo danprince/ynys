@@ -38,8 +38,14 @@ function updateCamera() {
   let { camera, player } = game;
 
   // Move camera to center on player
-  camera.x = player.x + player.spriteOffsetX;
-  camera.y = player.y + player.spriteOffsetY;
+  camera.x = player.x;
+  camera.y = player.y;
+
+  // If the camera isn't stabilised, move it with the player's motion
+  if (!camera.stable) {
+    camera.x += player.spriteOffsetX;
+    camera.y += player.spriteOffsetY;
+  }
 }
 
 function updatePlayer(): boolean {

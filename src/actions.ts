@@ -40,6 +40,8 @@ export function bump(object: GameObject, x: number, y: number): boolean {
   object.spriteOffsetX = (x - object.x) / 2;
   object.spriteOffsetY = (y - object.y) / 2;
 
+  // Prevent camera from moving with bumps
+  game.camera.stable = true;
   tween(object, {
     spriteOffsetX: 0,
     spriteOffsetY: 0,
@@ -47,7 +49,7 @@ export function bump(object: GameObject, x: number, y: number): boolean {
     duration: 150,
     id: object.id,
     easing: easeInOut,
-  });
+  }).then(() => game.camera.stable = false);
 
   return false;
 }

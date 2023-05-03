@@ -1,4 +1,4 @@
-import { start, draw, down, pressed, clear, drawFlipped, randomInt, ctx } from "@danprince/games";
+import { start, draw, down, pressed, clear, drawFlipped, randomInt, ctx, bounds, Rectangle, clamp, canvas, view, end, Point, local, pointer } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings, unit } from "./config";
 import { Game, GameObject, Terrain, GameMap, Tags } from "./game";
@@ -23,24 +23,33 @@ function loop() {
 }
 
 function render() {
+  let offset = getViewport();
+  let viewport = getLogicalViewport();
+
   clear();
 
-  for (let y = 0; y < game.map.height; y++) {
-    for (let x = 0; x < game.map.width; x++) {
-      let cell = game.map.getCell(x, y)!;
+  view(Math.floor(-offset.x * unit), Math.floor(-offset.y * unit));
+
+  for (let y = viewport.y; y < viewport.y + viewport.h; y++) {
+    for (let x = viewport.x; x < viewport.x + viewport.w; x++) {
+      let cell = game.map.getCell(x, y);
+      if (cell == null) continue;
       draw(cell.tile.sprite, x * unit, y * unit);
     }
   }
 
-  for (let y = 0; y < game.map.height; y++) {
-    for (let x = 0; x < game.map.width; x++) {
+  for (let y = viewport.y; y < viewport.y + viewport.h; y++) {
+    for (let x = viewport.x; x < viewport.x + viewport.w; x++) {
       let cell = game.map.getCell(x, y)!;
+      if (cell == null) continue;
 
       for (let object of cell.objects) {
         renderObject(object);
       }
     }
   }
+
+  end();
 }
 
 function renderObject(object: GameObject) {
@@ -85,10 +94,51 @@ function renderObject(object: GameObject) {
 }
 
 function update() {
+  updateCamera();
+
+  if (pressed()) {
+    let p = pointer();
+    console.log(screenToWorld(p.x, p.y));
+  }
+
   let success = updatePlayer();
+
   if (success) {
     // TODO: Update other objects
   }
+}
+
+function getViewport(): Rectangle {
+  let { camera, map } = game;
+
+  let w = Math.ceil(canvas.width / unit);
+  let h = Math.ceil(canvas.height / unit);
+  let x = camera.x - w / 2;
+  let y = camera.y - h / 2;
+
+  // Prevent viewport from going outside map bounds
+  x = clamp(0, map.width - w, x);
+  y = clamp(0, map.height - h, y);
+
+  // Render outside the visible area so that camera tweens are smooth
+  w = w + 1;
+  h = h + 1;
+
+  return { x, y, w, h };
+}
+
+function getLogicalViewport(): Rectangle {
+  let { x, y, w, h } = getViewport();
+  return { x: Math.floor(x), y: Math.floor(y), w, h };
+}
+
+function updateCamera() {
+  let { camera, player } = game;
+
+  // Move camera to center on player
+  camera.x = player.x + player.spriteOffsetX;
+  camera.y = player.y + player.spriteOffsetY;
+  camera.x
 }
 
 function updatePlayer(): boolean {
@@ -99,10 +149,28 @@ function updatePlayer(): boolean {
   return false;
 }
 
+function screenToWorld(x: number, y: number): Point {
+  let gridX = x / unit;
+  let gridY = y / unit;
+  let viewport = getViewport();
+  return {
+    x: Math.floor(gridX + viewport.x),
+    y: Math.floor(gridY + viewport.y),
+  };
+}
+
+function worldToScreen(x: number, y: number): Point {
+  let viewport = getViewport();
+  return {
+    x: (x + viewport.x) * unit,
+    y: (y + viewport.y) * unit,
+  };
+}
+
 function init() {
   let player = Player();
 
-  let map = new GameMap({ width: 10, height: 10, terrain: grass });
+  let map = new GameMap({ width: 30, height: 30, terrain: grass });
   map.spawn(player, 5, 5);
 
   for (let i = 0; i < 10; i++) {

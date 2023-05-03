@@ -1,4 +1,4 @@
-import { Sprite, PivotSprite, assert } from "@danprince/games";
+import { Sprite, PivotSprite, assert, Point } from "@danprince/games";
 import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
 
@@ -134,6 +134,7 @@ export class GameMap {
 export class Game {
   map: GameMap;
   player: GameObject;
+  camera: Point = { x: 0, y: 0 };
 
   constructor({ map, player }: { map: GameMap; player: GameObject }) {
     this.map = map;

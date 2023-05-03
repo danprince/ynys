@@ -25,4 +25,3 @@ export const decoration_reed_2 = { url, x: 37, w: 5, h: 5, y: 35, };
 export const decoration_reed_3 = { url, x: 42, w: 5, h: 5, y: 35, };
 export const decoration_alt_grass_1 = { url, x: 47, w: 5, h: 5, y: 35, };
 export const decoration_alt_grass_2 = { url, x: 52, w: 7, h: 6, y: 34, };
-export const path_dirt = { url, x: 0, w: 256, h: 16, y: 128, };

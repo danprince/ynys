@@ -3,7 +3,7 @@ import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, GameMap, Tags, Decoration } from "./game";
 import { Player, Rock, Roman, Tree } from "./objects";
-import { moveBy, rest } from "./actions";
+import { moveBy, moveTowards, rest } from "./actions";
 import { render, screenToWorld } from "./render";
 import { cardinalDirections } from "./helpers";
 import { grass } from "./terrains";
@@ -52,11 +52,16 @@ function updateCamera() {
 }
 
 function updatePlayer(): boolean {
+  // Keyboard
   if (keybindings.down.some(pressed)) return moveBy(game.player, 0, 1);
   if (keybindings.left.some(pressed)) return moveBy(game.player, -1, 0);
   if (keybindings.right.some(pressed)) return moveBy(game.player, 1, 0);
   if (keybindings.up.some(pressed)) return moveBy(game.player, 0, -1);
   if (keybindings.rest.some(pressed)) return rest(game.player);
+
+  // Mouse
+  if (pressed()) return moveTowards(game.player, game.cursor.x, game.cursor.y);
+
   return false;
 }
 

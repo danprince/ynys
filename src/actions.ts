@@ -5,6 +5,17 @@ export function moveBy(object: GameObject, dx: number, dy: number): boolean {
   return moveTo(object, object.x + dx, object.y + dy);
 }
 
+export function moveTowards(object: GameObject, x: number, y: number): boolean {
+  let dx = x - object.x;
+  let dy = y - object.y;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    return moveBy(object, Math.sign(dx), 0);
+  } else {
+    return moveBy(object, 0, Math.sign(dy));
+  }
+}
+
 export function moveTo(object: GameObject, x: number, y: number): boolean {
   // If the object is moving horizontally, set facing
   if (x !== object.x) {

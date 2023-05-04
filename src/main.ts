@@ -95,8 +95,7 @@ function init() {
     cell.addDecoration(new Decoration({
       sprite: randomElement([
         sprites.decoration_grass_1, sprites.decoration_grass_2, sprites.decoration_grass_2, sprites.decoration_grass_1, sprites.decoration_grass_4,
-        sprites.decoration_reed_1, sprites.decoration_reed_2, sprites.decoration_reed_3, sprites.decoration_reed_2,
-        sprites.decoration_alt_grass_1, sprites.decoration_alt_grass_2,
+        sprites.decoration_grass_5, sprites.decoration_grass_6, sprites.decoration_grass_7, sprites.decoration_grass_8, sprites.decoration_grass_9,
       ]),
     }));
   }

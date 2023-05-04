@@ -1,5 +1,5 @@
 import { easeInOut, tween } from "@danprince/games";
-import { GameObject } from "./game";
+import { GameObject, Tags } from "./game";
 
 export function moveBy(object: GameObject, dx: number, dy: number): boolean {
   return moveTo(object, object.x + dx, object.y + dy);
@@ -15,7 +15,7 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
   let cell = game.map.getCell(x, y);
   if (cell == null) return false;
 
-  if (cell.objects.length) {
+  if (cell.objects.some(target => target.tags.has(Tags.Blocking))) {
     return bump(object, x, y);
   }
 

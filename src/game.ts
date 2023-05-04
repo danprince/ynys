@@ -5,6 +5,7 @@ import * as sprites from "./sprites";
 export enum Tags {
   Mobile = "mobile",
   Occludes = "occludes",
+  Blocking = "blocking",
 }
 
 export class GameObject {

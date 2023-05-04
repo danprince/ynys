@@ -2,23 +2,29 @@ import { randomElement } from "@danprince/games";
 import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
 
-export function Player(): GameObject {
+function Human(): GameObject {
   let unit = new GameObject();
-  unit.sprite = sprites.object_druid_idle_1;
   unit.tags.add(Tags.Mobile);
+  unit.tags.add(Tags.Blocking);
+  return unit;
+}
+
+export function Player(): GameObject {
+  let unit = Human();
+  unit.sprite = sprites.object_druid_idle_1;
   return unit;
 }
 
 export function Roman(): GameObject {
-  let unit = new GameObject();
+  let unit = Human();
   unit.sprite = sprites.object_centurion;
-  unit.tags.add(Tags.Mobile);
   return unit;
 }
 
 export function Tree(): GameObject {
   let unit = new GameObject();
   unit.tags.add(Tags.Occludes);
+  unit.tags.add(Tags.Blocking);
   unit.sprite = randomElement([
     sprites.object_tree_1,
     sprites.object_tree_2,
@@ -34,6 +40,7 @@ export function Tree(): GameObject {
 
 export function Rock(): GameObject {
   let unit = new GameObject();
+  unit.tags.add(Tags.Blocking);
   unit.facing = randomElement(["left", "right"]);
   unit.sprite = randomElement([
     sprites.object_mossy_rock_1,

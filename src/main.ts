@@ -1,10 +1,10 @@
-import { start, pressed, randomInt, randomElement } from "@danprince/games";
+import { start, pressed, randomInt, randomElement, pointer } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, GameMap, Tags, Decoration } from "./game";
 import { Player, Rock, Roman, Tree } from "./objects";
 import { moveBy, rest } from "./actions";
-import { render } from "./render";
+import { render, screenToWorld } from "./render";
 import { cardinalDirections } from "./helpers";
 import { grass } from "./terrains";
 
@@ -23,6 +23,7 @@ function loop() {
 
 async function update() {
   updateCamera();
+  updateCursor();
 
   if (game.actionQueue.isEmpty()) {
     let success = updatePlayer();
@@ -35,6 +36,11 @@ async function update() {
       updateNonPlayerObjects();
     }
   }
+}
+
+function updateCursor() {
+  let { x, y } = pointer();
+  game.cursor = screenToWorld(x, y);
 }
 
 function updateCamera() {

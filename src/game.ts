@@ -221,6 +221,7 @@ export class Game {
   map: GameMap;
   player: GameObject;
   camera: Point = { x: 0, y: 0 };
+  cursor: Point = { x: 0, y: 0 };
   actionQueue = new BlockingActionQueue();
 
   constructor({ map, player }: { map: GameMap; player: GameObject }) {

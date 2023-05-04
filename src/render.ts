@@ -1,4 +1,4 @@
-import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point, pointer } from "@danprince/games";
+import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point } from "@danprince/games";
 import { unit } from "./config";
 import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
@@ -82,12 +82,9 @@ export function render() {
     }
   }
 
-  end();
-}
+  draw(sprites.ui_cursor_square, game.cursor.x * unit, game.cursor.y * unit);
 
-export function getCursorPosition() {
-  let { x, y } = pointer();
-  return screenToWorld(x, y);
+  end();
 }
 
 function renderObject(object: GameObject) {

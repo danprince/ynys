@@ -36,3 +36,4 @@ export const object_standing_stone_2 = { url, x: 119, w: 12, h: 17, y: 127, };
 export const object_standing_stone_3 = { url, x: 132, w: 13, h: 15, y: 129, };
 export const object_standing_stone_4 = { url, x: 146, w: 11, h: 18, y: 126, };
 export const object_standing_stone_5 = { url, x: 158, w: 12, h: 17, y: 127, };
+export const object_round_stone = { url, x: 0, w: 6, h: 6, y: 144, };

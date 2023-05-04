@@ -34,12 +34,18 @@ export function Tree(): GameObject {
 
 export function Rock(): GameObject {
   let unit = new GameObject();
+  unit.facing = randomElement(["left", "right"]);
   unit.sprite = randomElement([
     sprites.object_mossy_rock_1,
     sprites.object_mossy_rock_2,
     sprites.object_mossy_rock_3,
     sprites.object_mossy_rock_4,
     sprites.object_mossy_rock_5,
+    sprites.object_standing_stone_1,
+    sprites.object_standing_stone_2,
+    sprites.object_standing_stone_3,
+    sprites.object_standing_stone_4,
+    sprites.object_standing_stone_5,
   ]);
   return unit;
 }

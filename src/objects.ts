@@ -26,8 +26,8 @@ export function Tree(): GameObject {
     sprites.object_tree_4,
     sprites.object_tree_5,
     sprites.object_tree_6,
-    sprites.object_tree_7,
-    sprites.object_tree_8,
+    //sprites.object_tree_7,
+    //sprites.object_tree_8,
   ]);
   return unit;
 }

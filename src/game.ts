@@ -27,15 +27,24 @@ export class GameObject {
   spriteBumpZ: number = 0;
 }
 
+export enum Autotiling {
+  None,
+  Checkerboard,
+}
+
 export class Terrain {
   sprites: Sprite[];
+  autotiling: Autotiling;
 
   constructor({
     sprites,
+    autotiling = Autotiling.None,
   }: {
     sprites: Sprite[];
+    autotiling?: Autotiling;
   }) {
     this.sprites = sprites;
+    this.autotiling = autotiling;
   }
 }
 
@@ -136,9 +145,12 @@ export class GameMap {
   autotile() {
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
-        let checker = x % 2 ? y % 2 : 1 - (y % 2);
-        let cell = this.getCell(x, y);
-        if (cell) cell.tile.sprite = cell.tile.terrain.sprites[checker];
+        let { tile } = this.getCell(x, y)!;
+
+        if (tile.terrain.autotiling === Autotiling.Checkerboard) {
+          let checker = x % 2 ? y % 2 : 1 - (y % 2);
+          tile.sprite = tile.terrain.sprites[checker];
+        }
       }
     }
   }

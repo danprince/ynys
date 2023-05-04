@@ -1,11 +1,12 @@
 import { start, pressed, randomInt, randomElement } from "@danprince/games";
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
-import { Game, Terrain, GameMap, Tags, Decoration } from "./game";
+import { Game, GameMap, Tags, Decoration } from "./game";
 import { Player, Rock, Roman, Tree } from "./objects";
 import { moveBy, rest } from "./actions";
 import { render } from "./render";
 import { cardinalDirections } from "./helpers";
+import { grass } from "./terrains";
 
 declare global {
   const game: Game;
@@ -14,10 +15,6 @@ declare global {
     game: Game;
   }
 }
-
-let grass = new Terrain({
-  sprites: [sprites.tile_grass_1, sprites.tile_grass_2],
-});
 
 function loop() {
   update();

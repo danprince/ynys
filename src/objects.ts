@@ -1,11 +1,13 @@
 import { randomElement } from "@danprince/games";
 import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
+import { Vitality } from "./components";
 
 function Human(): GameObject {
   let unit = new GameObject();
   unit.tags.add(Tags.Mobile);
   unit.tags.add(Tags.Blocking);
+  unit.vitality = new Vitality(unit, { hp: 1 });
   return unit;
 }
 

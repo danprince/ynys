@@ -1,5 +1,5 @@
-import { easeInOut, tween } from "@danprince/games";
-import { GameObject, Tags } from "./game";
+import { assert, easeInOut, tween } from "@danprince/games";
+import { Game, GameObject, Tags } from "./game";
 
 export function moveBy(object: GameObject, dx: number, dy: number): boolean {
   return moveTo(object, object.x + dx, object.y + dy);
@@ -60,9 +60,48 @@ export function bump(object: GameObject, x: number, y: number): boolean {
     easing: easeInOut,
   });
 
+  let targets = game.map
+    .getCell(x, y)
+    ?.objects.filter(target => target.vitality);
+
+  if (targets) {
+    for (let target of targets) {
+      attack({ object, target, damage: 1 });
+    }
+
+    return true;
+  }
+
   return false;
 }
 
 export function rest(object: GameObject): boolean {
   return true;
+}
+
+interface Attack {
+  object: GameObject;
+  target: GameObject;
+  damage: number;
+}
+
+export function attack(attack: Attack): boolean {
+  damage(attack.target, attack.damage);
+  return true;
+}
+
+export function damage(target: GameObject, amount: number): boolean {
+  assert(target.vitality, "Can't damage object without vitals!");
+
+  target.vitality.damage(amount);
+
+  if (target.vitality.hp <= 0) {
+    death(target);
+  }
+
+  return true;
+}
+
+export function death(object: GameObject) {
+  game.map.despawn(object);
 }

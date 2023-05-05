@@ -1,6 +1,7 @@
 import { Sprite, PivotSprite, assert, Point, randomFloat } from "@danprince/games";
 import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
+import { Vitality } from "./components";
 
 export enum Tags {
   Mobile = "mobile",
@@ -16,6 +17,7 @@ export class GameObject {
   x: number = 0;
   y: number = 0;
   facing: "left" | "right" = "left";
+  vitality?: Vitality;
 
   // Camera follows the offset properties
   spriteOffsetX: number = 0;

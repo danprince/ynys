@@ -30,6 +30,12 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
     return bump(object, x, y);
   }
 
+  for (let target of cell.objects) {
+    if (!object.holding && target.tags.has(Tags.Pickup)) {
+      pickup(object, target);
+    }
+  }
+
   object.spriteOffsetX = object.x - x;
   object.spriteOffsetY = object.y - y;
 
@@ -104,4 +110,10 @@ export function damage(target: GameObject, amount: number): boolean {
 
 export function death(object: GameObject) {
   game.map.despawn(object);
+}
+
+export function pickup(object: GameObject, target: GameObject) {
+  if (object.holding) return false;
+  game.map.despawn(target);
+  object.holding = target;
 }

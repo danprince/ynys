@@ -7,6 +7,7 @@ export enum Tags {
   Mobile = "mobile",
   Occludes = "occludes",
   Blocking = "blocking",
+  Pickup = "pickup",
 }
 
 export class GameObject {
@@ -18,6 +19,7 @@ export class GameObject {
   y: number = 0;
   facing: "left" | "right" = "left";
   vitality?: Vitality;
+  holding?: GameObject;
 
   // Camera follows the offset properties
   spriteOffsetX: number = 0;

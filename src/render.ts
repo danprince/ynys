@@ -1,4 +1,4 @@
-import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point } from "@danprince/games";
+import { Rectangle, canvas, clamp, clear, view, draw, end, ctx, drawFlipped, Point, draw9Slice } from "@danprince/games";
 import { unit } from "./config";
 import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
@@ -83,6 +83,19 @@ export function render() {
   }
 
   draw(sprites.ui_cursor_square, game.cursor.x * unit, game.cursor.y * unit);
+  end();
+
+  renderHud();
+}
+
+function renderHud() {
+  view(2, 2);
+  draw9Slice(sprites.ui_item_slot, 0, 0, 16, 17);
+
+  if (game.player.holding) {
+    let { sprite } = game.player.holding;
+    draw(sprite, 8 - sprite.w / 2, 8 - sprite.h / 2);
+  }
 
   end();
 }

@@ -58,3 +58,10 @@ export function Rock(): GameObject {
   ]);
   return unit;
 }
+
+export function Stone(): GameObject {
+  let unit = new GameObject();
+  unit.tags.add(Tags.Pickup);
+  unit.sprite = sprites.object_round_stone;
+  return unit;
+}

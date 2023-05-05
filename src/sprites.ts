@@ -38,3 +38,4 @@ export const object_standing_stone_4 = { url, x: 146, w: 11, h: 18, y: 126, };
 export const object_standing_stone_5 = { url, x: 158, w: 12, h: 17, y: 127, };
 export const object_round_stone = { y: 144, url, x: 0, w: 6, h: 5, pivot: { x: 3, y: 3, }, };
 export const ui_cursor_square = { url, x: 32, w: 16, h: 16, y: 0, };
+export const ui_item_slot = { center: { x: 1, w: 8, h: 7, y: 2, }, url, x: 48, w: 10, h: 11, y: 0, };

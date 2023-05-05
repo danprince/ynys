@@ -2,7 +2,7 @@ import { start, pressed, randomInt, randomElement, pointer } from "@danprince/ga
 import * as sprites from "./sprites";
 import { keybindings } from "./config";
 import { Game, GameMap, Tags, Decoration } from "./game";
-import { Player, Rock, Roman, Tree } from "./objects";
+import { Player, Rock, Roman, Stone, Tree } from "./objects";
 import { moveBy, moveTowards, rest } from "./actions";
 import { render, screenToWorld } from "./render";
 import { cardinalDirections } from "./helpers";
@@ -82,6 +82,11 @@ function init() {
   map.spawn(player, 5, 5);
 
   map.spawn(Roman(), randomInt(map.width), randomInt(map.height));
+
+  map.spawn(Stone(), randomInt(map.width), randomInt(map.height));
+  map.spawn(Stone(), randomInt(map.width), randomInt(map.height));
+  map.spawn(Stone(), randomInt(map.width), randomInt(map.height));
+  map.spawn(Stone(), randomInt(map.width), randomInt(map.height));
 
   for (let i = 0; i < 100; i++) {
     let cell = randomElement(map.cells);

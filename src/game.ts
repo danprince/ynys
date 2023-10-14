@@ -1,13 +1,13 @@
 import { Sprite, PivotSprite, assert, Point, randomFloat } from "@danprince/games";
 import { removeFromArray } from "./helpers";
 import * as sprites from "./sprites";
-import { Vitality } from "./components";
+import { Equipment, Vitality } from "./components";
 
 export enum Tags {
   Mobile = "mobile",
   Occludes = "occludes",
   Blocking = "blocking",
-  Pickup = "pickup",
+  Choppable = "choppable",
 }
 
 export class GameObject {
@@ -20,6 +20,8 @@ export class GameObject {
   facing: "left" | "right" = "left";
   vitality?: Vitality;
   holding?: GameObject;
+  holder?: GameObject;
+  equipment?: Equipment;
 
   // Camera follows the offset properties
   spriteOffsetX: number = 0;
@@ -233,16 +235,33 @@ class BlockingActionQueue {
   }
 }
 
+export abstract class Mode {
+  abstract update(): boolean;
+  onEnter() {}
+  onExit() {}
+}
+
 export class Game {
   map: GameMap;
   player: GameObject;
   camera: Point = { x: 0, y: 0 };
   cursor: Point = { x: 0, y: 0 };
   actionQueue = new BlockingActionQueue();
+  mode: Mode;
 
-  constructor({ map, player }: { map: GameMap; player: GameObject }) {
+  constructor({ map, player, mode }: { map: GameMap; player: GameObject; mode: Mode }) {
     this.map = map;
     this.player = player;
+    this.mode = mode;
+    this.mode.onEnter();
+  }
+
+  setMode(mode: Mode) {
+    if (this.mode) {
+      this.mode.onExit();
+    }
+    this.mode = mode;
+    this.mode.onEnter();
   }
 
   /**

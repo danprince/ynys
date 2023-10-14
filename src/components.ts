@@ -24,3 +24,8 @@ export class Vitality extends Component {
     }
   }
 }
+
+export class Equipment extends Component {
+  use?: () => void;
+  bump?: (x: number, y: number) => void;
+}

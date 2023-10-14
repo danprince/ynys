@@ -1,7 +1,8 @@
 import { randomElement } from "@danprince/games";
-import { GameObject, Tags } from "./game";
+import { Game, GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
-import { Vitality } from "./components";
+import { Equipment, Vitality } from "./components";
+import { ThrowingMode } from "./modes";
 
 function Human(): GameObject {
   let unit = new GameObject();
@@ -14,6 +15,7 @@ function Human(): GameObject {
 export function Player(): GameObject {
   let unit = Human();
   unit.sprite = sprites.object_druid_idle_1;
+  unit.holding = Axe();
   return unit;
 }
 
@@ -27,6 +29,7 @@ export function Tree(): GameObject {
   let unit = new GameObject();
   unit.tags.add(Tags.Occludes);
   unit.tags.add(Tags.Blocking);
+  unit.tags.add(Tags.Choppable);
   unit.sprite = randomElement([
     sprites.object_tree_1,
     sprites.object_tree_2,
@@ -61,7 +64,25 @@ export function Rock(): GameObject {
 
 export function Stone(): GameObject {
   let unit = new GameObject();
-  unit.tags.add(Tags.Pickup);
   unit.sprite = sprites.object_round_stone;
+  unit.equipment = new Equipment(unit);
+  unit.equipment.use = () => game.setMode(new ThrowingMode(unit));
+  return unit;
+}
+
+export function Axe(): GameObject {
+  let unit = new GameObject();
+  unit.sprite = sprites.object_axe;
+  unit.equipment = new Equipment(unit);
+  unit.equipment.bump = (x, y) => {
+    let cell = game.map.getCell(x, y);
+    if (cell) {
+      for (let target of cell.objects) {
+        if (target.tags.has(Tags.Choppable)) {
+          game.map.despawn(target);
+        }
+      }
+    }
+  };
   return unit;
 }

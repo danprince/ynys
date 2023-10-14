@@ -31,7 +31,7 @@ export function moveTo(object: GameObject, x: number, y: number): boolean {
   }
 
   for (let target of cell.objects) {
-    if (!object.holding && target.tags.has(Tags.Pickup)) {
+    if (!object.holding && target.equipment) {
       pickup(object, target);
     }
   }
@@ -65,6 +65,8 @@ export function bump(object: GameObject, x: number, y: number): boolean {
     id: object.id,
     easing: easeInOut,
   });
+
+  object.holding?.equipment?.bump?.(x, y);
 
   let targets = game.map
     .getCell(x, y)
@@ -116,4 +118,5 @@ export function pickup(object: GameObject, target: GameObject) {
   if (object.holding) return false;
   game.map.despawn(target);
   object.holding = target;
+  target.holding = object;
 }

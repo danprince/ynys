@@ -7,5 +7,6 @@ export const keybindings = {
   down: ["ArrowDown", "s", "j"],
   rest: ["."],
   use: [" "],
+  cancel: ["Escape"],
 };
 

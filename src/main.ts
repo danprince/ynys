@@ -7,6 +7,7 @@ import { moveBy, moveTowards, rest } from "./actions";
 import { render, screenToWorld } from "./render";
 import { cardinalDirections } from "./helpers";
 import { grass } from "./terrains";
+import { DefaultMode } from "./modes";
 
 declare global {
   const game: Game;
@@ -26,7 +27,7 @@ async function update() {
   updateCursor();
 
   if (game.actionQueue.isEmpty()) {
-    let success = updatePlayer();
+    let success = game.mode.update();
 
     // Wait for any consequential blocking animations to be done before
     // updating the other enemies.
@@ -49,20 +50,6 @@ function updateCamera() {
   // Move camera to center on player
   camera.x = player.x + player.spriteOffsetX;
   camera.y = player.y + player.spriteOffsetY;
-}
-
-function updatePlayer(): boolean {
-  // Keyboard
-  if (keybindings.down.some(pressed)) return moveBy(game.player, 0, 1);
-  if (keybindings.left.some(pressed)) return moveBy(game.player, -1, 0);
-  if (keybindings.right.some(pressed)) return moveBy(game.player, 1, 0);
-  if (keybindings.up.some(pressed)) return moveBy(game.player, 0, -1);
-  if (keybindings.rest.some(pressed)) return rest(game.player);
-
-  // Mouse
-  if (pressed()) return moveTowards(game.player, game.cursor.x, game.cursor.y);
-
-  return false;
 }
 
 function updateNonPlayerObjects() {
@@ -113,7 +100,9 @@ function init() {
     }));
   }
 
-  window.game = new Game({ map, player });
+  let mode = new DefaultMode();
+
+  window.game = new Game({ map, player, mode });
 
   // Aspect ratio tweaked slightly to be a perfect multiple of units
   start({ loop, width: 336, height: 192 });

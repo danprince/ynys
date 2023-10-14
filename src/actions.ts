@@ -1,5 +1,5 @@
 import { assert, easeInOut, tween } from "@danprince/games";
-import { Game, GameObject, Tags } from "./game";
+import { GameObject, Tags } from "./game";
 
 export function moveBy(object: GameObject, dx: number, dy: number): boolean {
   return moveTo(object, object.x + dx, object.y + dy);

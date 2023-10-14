@@ -1,5 +1,5 @@
 import { randomElement } from "@danprince/games";
-import { Game, GameObject, Tags } from "./game";
+import { GameObject, Tags } from "./game";
 import * as sprites from "./sprites";
 import { Equipment, Vitality } from "./components";
 import { ThrowingMode } from "./modes";

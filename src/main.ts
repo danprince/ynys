@@ -1,9 +1,8 @@
-import { start, pressed, randomInt, randomElement, pointer } from "@danprince/games";
+import { start, randomInt, randomElement, pointer } from "@danprince/games";
 import * as sprites from "./sprites";
-import { keybindings } from "./config";
 import { Game, GameMap, Tags, Decoration } from "./game";
 import { Player, Rock, Roman, Stone, Tree } from "./objects";
-import { moveBy, moveTowards, rest } from "./actions";
+import { moveBy } from "./actions";
 import { render, screenToWorld } from "./render";
 import { cardinalDirections } from "./helpers";
 import { grass } from "./terrains";
